@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Lists all IPs on the machine
-ip_addresses=$(hostname -I)
+# Lists all active IPv4 IP addresses on the machine
+ip_addresses=$(ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1)
 
-IFS=' ' read -r -a ip_addresses <<< "$ip_addresses"
+IFS=$'\n' read -r -d '' -a ip_addresses <<< "$ip_addresses"
 
 for ip in "${ip_addresses[@]}"; do
   printf '%s\n' "$ip"
