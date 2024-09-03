@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-#Lists al ip in machine
+# Lists all IPs on the machine
 ip_addresses=$(hostname -I)
 
-ip_addresses=(${ip_addresses//" "/ })
+IFS=' ' read -r -a ip_addresses <<< "$ip_addresses"
 
-for ip in "${ip_addresses[@]}";
-do
-  printf "$ip\n"
+for ip in "${ip_addresses[@]}"; do
+  printf '%s\n' "$ip"
 done
